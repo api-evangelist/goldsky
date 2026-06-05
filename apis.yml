@@ -15,173 +15,175 @@ description: >-
   S3, AWS SQS, Elasticsearch, S2, and Parquet.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Blockchain Data
-  - Indexer
-  - Subgraphs
-  - CDC
-  - Streaming
-  - RPC
-  - Crypto
-  - Web3
+- Blockchain Data
+- Indexer
+- Subgraphs
+- CDC
+- Streaming
+- RPC
+- Crypto
+- Web3
 created: '2026-05-23'
 modified: '2026-05-23'
 specificationVersion: '0.19'
 apis:
-  - aid: goldsky:subgraphs
-    name: Goldsky Subgraphs
-    description: >-
-      Managed subgraph hosting compatible with The Graph - deploy subgraph
-      definitions and get a hosted GraphQL endpoint per subgraph for querying
-      indexed onchain data. Includes sync acceleration and direct indexing
-      modes for faster backfill than vanilla Graph Node.
-    humanURL: https://docs.goldsky.com/subgraphs/introduction
-    baseURL: https://api.goldsky.com/api/public/project_<project>/subgraphs
-    tags:
-      - GraphQL
-      - Subgraphs
-      - The Graph
-      - Indexer
-    properties:
-      - type: Documentation
-        url: https://docs.goldsky.com/subgraphs/introduction
-  - aid: goldsky:mirror
-    name: Goldsky Mirror
-    description: >-
-      Change-data-capture pipelines that stream decoded onchain data from
-      Goldsky's indexers into customer-managed sinks - PostgreSQL, ClickHouse,
-      Kafka, MySQL, Webhook, S3, AWS SQS, Elasticsearch, S2, Parquet. Defined
-      declaratively via pipeline YAML and managed through the CLI or REST API.
-    humanURL: https://docs.goldsky.com/mirror/introduction
-    baseURL: https://api.goldsky.com/api/public/project_<project>/mirror
-    tags:
-      - CDC
-      - Streaming
-      - Warehouse
-      - Pipelines
-    properties:
-      - type: Documentation
-        url: https://docs.goldsky.com/mirror/introduction
-  - aid: goldsky:turbo
-    name: Goldsky Turbo
-    description: >-
-      Vectorized real-time data pipelines with SQL transforms over decoded
-      onchain data, with the same multi-sink delivery model as Mirror.
-      Designed for high-throughput analytics and ML feature pipelines.
-    humanURL: https://docs.goldsky.com/turbo/introduction
-    baseURL: https://api.goldsky.com/api/public/project_<project>/turbo
-    tags:
-      - SQL
-      - Pipelines
-      - Vectorized
-      - Streaming
-    properties:
-      - type: Documentation
-        url: https://docs.goldsky.com/turbo/introduction
-  - aid: goldsky:compose
-    name: Goldsky Compose
-    description: >-
-      Execution layer for orchestrating onchain-x-offchain workflows -
-      compose smart-contract calls, external APIs, and managed tasks into
-      reliable pipelines triggered by onchain events.
-    humanURL: https://docs.goldsky.com/compose/introduction
-    baseURL: https://docs.goldsky.com/compose/introduction
-    tags:
-      - Orchestration
-      - Workflows
-      - Onchain
-      - Offchain
-    properties:
-      - type: Documentation
-        url: https://docs.goldsky.com/compose/introduction
-  - aid: goldsky:edge-rpc
-    name: Goldsky Edge RPC
-    description: >-
-      High-performance JSON-RPC service for EVM networks with advanced
-      debugging and tracing methods. Used as a drop-in replacement for
-      vanilla RPC providers when apps need debug_traceTransaction-class
-      methods or low-latency reads.
-    humanURL: https://docs.goldsky.com/edge-rpc/introduction
-    baseURL: https://docs.goldsky.com/edge-rpc/introduction
-    tags:
-      - JSON-RPC
-      - EVM
-      - Tracing
-      - Debug
-    properties:
-      - type: Documentation
-        url: https://docs.goldsky.com/edge-rpc/introduction
-  - aid: goldsky:pipeline-api
-    name: Goldsky Pipeline REST API
-    description: >-
-      REST API for managing Mirror and Turbo pipelines - create, delete,
-      list, pause, resume, restart - plus pipeline logs (with cursor
-      pagination) and pipeline status endpoints. Same API used by the CLI.
-    humanURL: https://docs.goldsky.com/
-    baseURL: https://api.goldsky.com
-    tags:
-      - REST
-      - Pipelines
-      - Management
-    properties:
-      - type: Documentation
-        url: https://docs.goldsky.com/
-  - aid: goldsky:cli
-    name: Goldsky CLI
-    description: >-
-      Command-line tool for deploying and managing subgraphs, Mirror
-      pipelines, Turbo pipelines, and Compose applications. Authenticates
-      with a Goldsky API key and wraps the public REST API.
-    humanURL: https://docs.goldsky.com/reference/cli
-    baseURL: https://docs.goldsky.com/reference/cli
-    tags:
-      - CLI
-      - Tooling
-      - DevEx
-    properties:
-      - type: Documentation
-        url: https://docs.goldsky.com/reference/cli
-  - aid: goldsky:dashboard
-    name: Goldsky Dashboard
-    description: >-
-      Web dashboard for managing Goldsky projects - subgraph deployments,
-      pipeline status, logs, billing, and API keys.
-    humanURL: https://app.goldsky.com/
-    baseURL: https://app.goldsky.com/
-    tags:
-      - Dashboard
-      - Web
-      - Management
-    properties:
-      - type: Website
-        url: https://app.goldsky.com/
-common:
-  - type: Website
-    url: https://goldsky.com/
+- aid: goldsky:subgraphs
+  name: Goldsky Subgraphs
+  description: >-
+    Managed subgraph hosting compatible with The Graph - deploy subgraph
+    definitions and get a hosted GraphQL endpoint per subgraph for querying
+    indexed onchain data. Includes sync acceleration and direct indexing
+    modes for faster backfill than vanilla Graph Node.
+  humanURL: https://docs.goldsky.com/subgraphs/introduction
+  baseURL: https://api.goldsky.com/api/public/project_<project>/subgraphs
+  tags:
+  - GraphQL
+  - Subgraphs
+  - The Graph
+  - Indexer
+  properties:
+  - type: Documentation
+    url: https://docs.goldsky.com/subgraphs/introduction
+  - url: graphql/goldsky-graphql.md
+    type: GraphQL
+- aid: goldsky:mirror
+  name: Goldsky Mirror
+  description: >-
+    Change-data-capture pipelines that stream decoded onchain data from
+    Goldsky's indexers into customer-managed sinks - PostgreSQL, ClickHouse,
+    Kafka, MySQL, Webhook, S3, AWS SQS, Elasticsearch, S2, Parquet. Defined
+    declaratively via pipeline YAML and managed through the CLI or REST API.
+  humanURL: https://docs.goldsky.com/mirror/introduction
+  baseURL: https://api.goldsky.com/api/public/project_<project>/mirror
+  tags:
+  - CDC
+  - Streaming
+  - Warehouse
+  - Pipelines
+  properties:
+  - type: Documentation
+    url: https://docs.goldsky.com/mirror/introduction
+- aid: goldsky:turbo
+  name: Goldsky Turbo
+  description: >-
+    Vectorized real-time data pipelines with SQL transforms over decoded
+    onchain data, with the same multi-sink delivery model as Mirror.
+    Designed for high-throughput analytics and ML feature pipelines.
+  humanURL: https://docs.goldsky.com/turbo/introduction
+  baseURL: https://api.goldsky.com/api/public/project_<project>/turbo
+  tags:
+  - SQL
+  - Pipelines
+  - Vectorized
+  - Streaming
+  properties:
+  - type: Documentation
+    url: https://docs.goldsky.com/turbo/introduction
+- aid: goldsky:compose
+  name: Goldsky Compose
+  description: >-
+    Execution layer for orchestrating onchain-x-offchain workflows -
+    compose smart-contract calls, external APIs, and managed tasks into
+    reliable pipelines triggered by onchain events.
+  humanURL: https://docs.goldsky.com/compose/introduction
+  baseURL: https://docs.goldsky.com/compose/introduction
+  tags:
+  - Orchestration
+  - Workflows
+  - Onchain
+  - Offchain
+  properties:
+  - type: Documentation
+    url: https://docs.goldsky.com/compose/introduction
+- aid: goldsky:edge-rpc
+  name: Goldsky Edge RPC
+  description: >-
+    High-performance JSON-RPC service for EVM networks with advanced
+    debugging and tracing methods. Used as a drop-in replacement for
+    vanilla RPC providers when apps need debug_traceTransaction-class
+    methods or low-latency reads.
+  humanURL: https://docs.goldsky.com/edge-rpc/introduction
+  baseURL: https://docs.goldsky.com/edge-rpc/introduction
+  tags:
+  - JSON-RPC
+  - EVM
+  - Tracing
+  - Debug
+  properties:
+  - type: Documentation
+    url: https://docs.goldsky.com/edge-rpc/introduction
+- aid: goldsky:pipeline-api
+  name: Goldsky Pipeline REST API
+  description: >-
+    REST API for managing Mirror and Turbo pipelines - create, delete,
+    list, pause, resume, restart - plus pipeline logs (with cursor
+    pagination) and pipeline status endpoints. Same API used by the CLI.
+  humanURL: https://docs.goldsky.com/
+  baseURL: https://api.goldsky.com
+  tags:
+  - REST
+  - Pipelines
+  - Management
+  properties:
   - type: Documentation
     url: https://docs.goldsky.com/
-  - type: Dashboard
+- aid: goldsky:cli
+  name: Goldsky CLI
+  description: >-
+    Command-line tool for deploying and managing subgraphs, Mirror
+    pipelines, Turbo pipelines, and Compose applications. Authenticates
+    with a Goldsky API key and wraps the public REST API.
+  humanURL: https://docs.goldsky.com/reference/cli
+  baseURL: https://docs.goldsky.com/reference/cli
+  tags:
+  - CLI
+  - Tooling
+  - DevEx
+  properties:
+  - type: Documentation
+    url: https://docs.goldsky.com/reference/cli
+- aid: goldsky:dashboard
+  name: Goldsky Dashboard
+  description: >-
+    Web dashboard for managing Goldsky projects - subgraph deployments,
+    pipeline status, logs, billing, and API keys.
+  humanURL: https://app.goldsky.com/
+  baseURL: https://app.goldsky.com/
+  tags:
+  - Dashboard
+  - Web
+  - Management
+  properties:
+  - type: Website
     url: https://app.goldsky.com/
-  - type: GitHub
-    url: https://github.com/goldsky-io
-  - type: Blog
-    url: https://goldsky.com/blog
-  - type: X
-    url: https://x.com/goldskyio
-  - type: Email
-    url: support@goldsky.com
-  - type: LLMsTxt
-    url: https://docs.goldsky.com/llms.txt
+common:
+- type: Website
+  url: https://goldsky.com/
+- type: Documentation
+  url: https://docs.goldsky.com/
+- type: Dashboard
+  url: https://app.goldsky.com/
+- type: GitHub
+  url: https://github.com/goldsky-io
+- type: Blog
+  url: https://goldsky.com/blog
+- type: X
+  url: https://x.com/goldskyio
+- type: Email
+  url: support@goldsky.com
+- type: LLMsTxt
+  url: https://docs.goldsky.com/llms.txt
 integrations:
-  - name: The Graph
-  - name: PostgreSQL
-  - name: ClickHouse
-  - name: Snowflake
-  - name: BigQuery
-  - name: Kafka
-  - name: MySQL
-  - name: AWS S3
-  - name: AWS SQS
-  - name: Elasticsearch
+- name: The Graph
+- name: PostgreSQL
+- name: ClickHouse
+- name: Snowflake
+- name: BigQuery
+- name: Kafka
+- name: MySQL
+- name: AWS S3
+- name: AWS SQS
+- name: Elasticsearch
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
