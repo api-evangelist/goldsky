@@ -171,7 +171,7 @@ common:
   url: https://x.com/goldskyio
 - type: Email
   url: support@goldsky.com
-- type: LLMsTxt
+- type: LlmsText
   url: https://docs.goldsky.com/llms.txt
 integrations:
 - name: The Graph
