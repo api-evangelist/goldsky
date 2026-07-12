@@ -157,6 +157,8 @@ apis:
   - type: Website
     url: https://app.goldsky.com/
 common:
+- type: DomainSecurity
+  url: security/goldsky-domain-security.yml
 - type: Website
   url: https://goldsky.com/
 - type: Documentation
