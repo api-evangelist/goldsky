@@ -1,0 +1,545 @@
+openapi: 3.2.0
+info:
+  title: Goldsky Pipelines API
+  description: 'REST API for managing Goldsky pipelines. Create, deploy, monitor, and manage data pipelines programmatically.
+
+
+    For a full introduction to Turbo Pipelines, see the [Turbo Pipelines documentation](https://docs.goldsky.com/turbo-pipelines/introduction).'
+  version: 1.0.0
+  contact:
+    name: Goldsky Support
+    email: support@goldsky.com
+    url: https://docs.goldsky.com
+  x-source-url: https://docs.goldsky.com/turbo-pipelines/api/openapi.json
+  x-documentation-url: https://docs.goldsky.com/
+  x-last-validated: '2026-08-10'
+  x-provenance: first-party — retrieved from the provider's own documentation host
+servers:
+- url: https://api.goldsky.com/api/v1
+  description: Goldsky API
+security:
+- BearerAuth: []
+tags:
+- name: Pipelines
+  description: Create, read, update, and delete pipelines. Manage pipeline lifecycle (pause, resume, restart).
+paths:
+  /pipelines/:
+    get:
+      summary: List pipelines
+      tags:
+      - Pipelines
+      description: List all pipelines in the current project. Optionally filter by type.
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: type
+        required: false
+      - schema:
+          minimum: 1
+          maximum: 100
+          type: number
+        in: query
+        name: pageSize
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: pageToken
+        required: false
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        type:
+                          type: string
+                        status:
+                          anyOf:
+                          - type: string
+                            enum:
+                            - RUNNING
+                          - type: string
+                            enum:
+                            - PAUSED
+                          - type: string
+                            enum:
+                            - RESTARTING
+                          - type: string
+                            enum:
+                            - DEPLOYING
+                          - type: string
+                            enum:
+                            - STOPPED
+                          - type: string
+                            enum:
+                            - FAILED
+                          - type: string
+                            enum:
+                            - UNKNOWN
+                        definition:
+                          type: object
+                          properties:
+                            sources:
+                              type: object
+                              additionalProperties: {}
+                            transforms:
+                              type: object
+                              additionalProperties: {}
+                            sinks:
+                              type: object
+                              additionalProperties: {}
+                            description:
+                              type: string
+                            resource_size:
+                              type: string
+                            use_dedicated_ip:
+                              type: boolean
+                            job:
+                              type: boolean
+                          required:
+                          - sources
+                          - transforms
+                          - sinks
+                        resource_size:
+                          type: string
+                        created_at:
+                          format: date-time
+                          type: string
+                        updated_at:
+                          format: date-time
+                          type: string
+                        version:
+                          type: number
+                        project_id:
+                          type: string
+                      required:
+                      - name
+                      - type
+                      - status
+                      - definition
+                      - created_at
+                      - updated_at
+                  pagination:
+                    type: object
+                    properties:
+                      next_page_token:
+                        anyOf:
+                        - type: string
+                        - type: 'null'
+                      page_size:
+                        type: number
+                    required:
+                    - next_page_token
+                    - page_size
+                required:
+                - data
+                - pagination
+    post:
+      summary: Create a pipeline
+      tags:
+      - Pipelines
+      description: Create and deploy a new turbo pipeline. The pipeline name must be unique within the project.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  minLength: 1
+                  maxLength: 50
+                  pattern: ^[a-z0-9-]{1,50}$
+                  description: Pipeline name. Only lowercase letters, numbers, and hyphens are allowed.
+                  type: string
+                resource_size:
+                  type: string
+                description:
+                  type: string
+                use_dedicated_ip:
+                  type: boolean
+                definition:
+                  type: object
+                  properties:
+                    sources:
+                      type: object
+                      additionalProperties: {}
+                    transforms:
+                      type: object
+                      additionalProperties: {}
+                    sinks:
+                      type: object
+                      additionalProperties: {}
+                  required:
+                  - sources
+                  - transforms
+                  - sinks
+              required:
+              - name
+              - definition
+            example:
+              name: ethereum-blocks
+              resource_size: s
+              use_dedicated_ip: false
+              job: false
+              description: Streams Ethereum blocks
+              definition:
+                sources:
+                  my_source:
+                    dataset_name: ethereum.raw_blocks
+                    start_at: latest
+                    type: dataset
+                    version: 1.0.0
+                transforms:
+                  my_transform:
+                    from: my_source
+                    primary_key: id
+                    type: handler
+                    url: https://handler.com
+                sinks:
+                  my_sink:
+                    from: my_transform
+                    type: blackhole
+        required: true
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  type:
+                    type: string
+                  status:
+                    anyOf:
+                    - type: string
+                      enum:
+                      - RUNNING
+                    - type: string
+                      enum:
+                      - PAUSED
+                    - type: string
+                      enum:
+                      - RESTARTING
+                    - type: string
+                      enum:
+                      - DEPLOYING
+                    - type: string
+                      enum:
+                      - STOPPED
+                    - type: string
+                      enum:
+                      - FAILED
+                    - type: string
+                      enum:
+                      - UNKNOWN
+                  definition:
+                    type: object
+                    properties:
+                      sources:
+                        type: object
+                        additionalProperties: {}
+                      transforms:
+                        type: object
+                        additionalProperties: {}
+                      sinks:
+                        type: object
+                        additionalProperties: {}
+                      description:
+                        type: string
+                      resource_size:
+                        type: string
+                      use_dedicated_ip:
+                        type: boolean
+                      job:
+                        type: boolean
+                    required:
+                    - sources
+                    - transforms
+                    - sinks
+                  resource_size:
+                    type: string
+                  created_at:
+                    format: date-time
+                    type: string
+                  updated_at:
+                    format: date-time
+                    type: string
+                  version:
+                    type: number
+                  project_id:
+                    type: string
+                required:
+                - name
+                - type
+                - status
+                - definition
+                - created_at
+                - updated_at
+  /pipelines/{name}:
+    get:
+      summary: Get a pipeline
+      tags:
+      - Pipelines
+      description: Get the details of a specific pipeline by name.
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: name
+        required: true
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  type:
+                    type: string
+                  status:
+                    anyOf:
+                    - type: string
+                      enum:
+                      - RUNNING
+                    - type: string
+                      enum:
+                      - PAUSED
+                    - type: string
+                      enum:
+                      - RESTARTING
+                    - type: string
+                      enum:
+                      - DEPLOYING
+                    - type: string
+                      enum:
+                      - STOPPED
+                    - type: string
+                      enum:
+                      - FAILED
+                    - type: string
+                      enum:
+                      - UNKNOWN
+                  definition:
+                    type: object
+                    properties:
+                      sources:
+                        type: object
+                        additionalProperties: {}
+                      transforms:
+                        type: object
+                        additionalProperties: {}
+                      sinks:
+                        type: object
+                        additionalProperties: {}
+                      description:
+                        type: string
+                      resource_size:
+                        type: string
+                      use_dedicated_ip:
+                        type: boolean
+                      job:
+                        type: boolean
+                    required:
+                    - sources
+                    - transforms
+                    - sinks
+                  resource_size:
+                    type: string
+                  created_at:
+                    format: date-time
+                    type: string
+                  updated_at:
+                    format: date-time
+                    type: string
+                  version:
+                    type: number
+                  project_id:
+                    type: string
+                required:
+                - name
+                - type
+                - status
+                - definition
+                - created_at
+                - updated_at
+    delete:
+      summary: Delete a pipeline
+      tags:
+      - Pipelines
+      description: Delete a pipeline by name. This action cannot be undone.
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: name
+        required: true
+      responses:
+        '200':
+          description: Default Response
+  /pipelines/validate:
+    post:
+      summary: Validate a pipeline definition
+      tags:
+      - Pipelines
+      description: Validate a pipeline definition without deploying it. Returns validation errors and warnings.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                definition:
+                  type: object
+                  properties:
+                    sources:
+                      type: object
+                      additionalProperties: {}
+                    transforms:
+                      type: object
+                      additionalProperties: {}
+                    sinks:
+                      type: object
+                      additionalProperties: {}
+                  required:
+                  - sources
+                  - transforms
+                  - sinks
+              required:
+              - definition
+            example:
+              definition:
+                sources:
+                  my_source:
+                    dataset_name: ethereum.raw_blocks
+                    start_at: latest
+                    type: dataset
+                    version: 1.0.0
+                transforms:
+                  my_transform:
+                    from: my_source
+                    primary_key: id
+                    type: handler
+                    url: https://handler.com
+                sinks:
+                  my_sink:
+                    from: my_transform
+                    type: blackhole
+                name: ethereum-blocks
+                resource_size: s
+                use_dedicated_ip: false
+                job: false
+                description: Streams Ethereum blocks
+        required: true
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - message
+                  warnings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - message
+                required:
+                - valid
+                - errors
+                - warnings
+  /pipelines/{name}/pause:
+    put:
+      summary: Pause a pipeline
+      tags:
+      - Pipelines
+      description: Pause a running pipeline. Can be resumed later.
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: name
+        required: true
+      responses:
+        '200':
+          description: Default Response
+  /pipelines/{name}/resume:
+    put:
+      summary: Resume a pipeline
+      tags:
+      - Pipelines
+      description: Resume a paused pipeline.
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: name
+        required: true
+      responses:
+        '200':
+          description: Default Response
+  /pipelines/{name}/restart:
+    put:
+      summary: Restart a pipeline
+      tags:
+      - Pipelines
+      description: Restart a pipeline. Optionally clear state to start fresh.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clearState:
+                  default: false
+                  type: boolean
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: name
+        required: true
+      responses:
+        '200':
+          description: Default Response
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API token generated from the [Goldsky Dashboard](https://app.goldsky.com/dashboard/settings/project). Pass as: Authorization: Bearer <token>'

@@ -1,0 +1,21 @@
+{
+  "provider": "goldsky",
+  "sources": [
+    "goldsky-goldsky-api.yml"
+  ],
+  "outputs": [
+    "goldsky-pipeline-logs-api-openapi.yml",
+    "goldsky-pipeline-status-api-openapi.yml",
+    "goldsky-pipelines-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/goldsky-goldsky-api.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "goldsky-goldsky-api.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+3 apis, 11 total)"
+  ],
+  "skipped": []
+}
