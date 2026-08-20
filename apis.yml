@@ -103,6 +103,11 @@ apis:
   - Orchestration
   - Workflows
   - Onchain
+  - Off-chain
+  tags_raw:
+  - Orchestration
+  - Workflows
+  - Onchain
   - Offchain
   properties:
   - type: Documentation
