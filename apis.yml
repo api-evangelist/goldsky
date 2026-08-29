@@ -13,6 +13,17 @@ description: >-
   Developers interact via a CLI, a web dashboard, and REST + GraphQL APIs.
   Sinks supported include PostgreSQL, ClickHouse, Kafka, MySQL, Webhooks,
   S3, AWS SQS, Elasticsearch, S2, and Parquet.
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - none
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: unknown
