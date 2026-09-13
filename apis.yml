@@ -41,6 +41,15 @@ tags:
 - Blockchain Data
 - Indexer
 - Subgraphs
+- Change Data Capture
+- Streaming
+- RPC
+- Crypto
+- Web3
+tags_raw:
+- Blockchain Data
+- Indexer
+- Subgraphs
 - CDC
 - Streaming
 - RPC
@@ -79,6 +88,11 @@ apis:
   humanURL: https://docs.goldsky.com/mirror/introduction
   baseURL: https://api.goldsky.com/api/public/project_<project>/mirror
   tags:
+  - Change Data Capture
+  - Streaming
+  - Warehouse
+  - Pipelines
+  tags_raw:
   - CDC
   - Streaming
   - Warehouse
