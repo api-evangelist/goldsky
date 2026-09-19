@@ -40,7 +40,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/goldsky.pn
 tags:
 - Blockchain Data
 - Indexer
-- Subgraphs
+- Subgraph
 - Change Data Capture
 - Streaming
 - RPC
@@ -69,6 +69,11 @@ apis:
   humanURL: https://docs.goldsky.com/subgraphs/introduction
   baseURL: https://api.goldsky.com/api/public/project_<project>/subgraphs
   tags:
+  - GraphQL
+  - Subgraph
+  - The Graph
+  - Indexer
+  tags_raw:
   - GraphQL
   - Subgraphs
   - The Graph
@@ -192,6 +197,10 @@ apis:
   humanURL: https://app.goldsky.com/
   baseURL: https://app.goldsky.com/
   tags:
+  - Dashboards
+  - Web
+  - Management
+  tags_raw:
   - Dashboard
   - Web
   - Management
