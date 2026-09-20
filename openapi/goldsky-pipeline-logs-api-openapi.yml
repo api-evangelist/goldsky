@@ -1,0 +1,143 @@
+openapi: 3.2.0
+info:
+  title: Goldsky Pipeline Logs API
+  description: 'REST API for managing Goldsky pipelines. Create, deploy, monitor, and manage data pipelines programmatically.
+
+
+    For a full introduction to Turbo Pipelines, see the [Turbo Pipelines documentation](https://docs.goldsky.com/turbo-pipelines/introduction).'
+  version: 1.0.0
+  contact:
+    name: Goldsky Support
+    email: support@goldsky.com
+    url: https://docs.goldsky.com
+  x-source-url: https://docs.goldsky.com/turbo-pipelines/api/openapi.json
+  x-documentation-url: https://docs.goldsky.com/
+  x-last-validated: '2026-08-10'
+  x-provenance: first-party — retrieved from the provider's own documentation host
+servers:
+- url: https://api.goldsky.com/api/v1
+  description: Goldsky API
+security:
+- BearerAuth: []
+tags:
+- name: Pipeline Logs
+  description: Retrieve pipeline execution logs.
+paths:
+  /pipelines/{name}/logs:
+    get:
+      summary: Get pipeline logs
+      tags:
+      - Pipeline Logs
+      description: Retrieve execution logs for a pipeline. Supports cursor-based pagination and filtering.
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: logLevels
+        required: false
+      - schema:
+          type: number
+        in: query
+        name: cursor
+        required: false
+      - schema:
+          type: number
+        in: query
+        name: after
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: search
+        required: false
+      - schema:
+          anyOf:
+          - type: string
+            enum:
+            - asc
+          - type: string
+            enum:
+            - desc
+        in: query
+        name: direction
+        required: false
+      - schema:
+          type: string
+        in: path
+        name: name
+        required: true
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                            timestamp:
+                              type: number
+                            level:
+                              type: string
+                          required:
+                          - text
+                          - timestamp
+                          - level
+                      cursor:
+                        type: number
+                    required:
+                    - results
+                required:
+                - data
+  /pipelines/{name}/logs/error-count:
+    get:
+      summary: Get pipeline error count
+      tags:
+      - Pipeline Logs
+      description: 'Get the number of error-level log entries for a pipeline within a configurable time window (default: 6 hours, max: 7 days).'
+      parameters:
+      - schema:
+          minimum: 1
+          maximum: 168
+          default: 6
+          type: integer
+        in: query
+        name: since_hours
+        required: false
+      - schema:
+          type: string
+        in: path
+        name: name
+        required: true
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      error_count:
+                        type: number
+                    required:
+                    - error_count
+                required:
+                - data
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API token generated from the [Goldsky Dashboard](https://app.goldsky.com/dashboard/settings/project). Pass as: Authorization: Bearer <token>'
