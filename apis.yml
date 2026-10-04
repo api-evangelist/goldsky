@@ -37,6 +37,10 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/goldsky.png
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
+x-docs-hosting: vercel
 tags:
 - Blockchain Data
 - Indexer
@@ -50,7 +54,7 @@ tags_raw:
 - Blockchain Data
 - Indexer
 - Subgraphs
-- CDC
+- Change Data Capture
 - Streaming
 - RPC
 - Crypto
@@ -98,7 +102,7 @@ apis:
   - Warehouse
   - Pipelines
   tags_raw:
-  - CDC
+  - Change Data Capture
   - Streaming
   - Warehouse
   - Pipelines
